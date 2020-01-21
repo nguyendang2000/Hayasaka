@@ -2,7 +2,7 @@ import discord
 from discord.ext import commands
 import asyncio
 from random import sample
-from config import elapsed, embed_date, embed_format
+from config import elapsed, embed_date, embed_format, hayasaka_blue
 
 class Info(commands.Cog):
 
@@ -44,7 +44,7 @@ class Info(commands.Cog):
             emotes_cap = len(emotes_list)
         emotes = ' '.join(sample(emotes_list, emotes_cap))
         created_at = embed_date(server.created_at)
-        embed = discord.Embed(colour = discord.Colour.from_rgb(171, 220, 237))
+        embed = discord.Embed(colour = hayasaka_blue)
         embed.set_author(name = f'{server.name}\'s Server Info (ID: {server.id})')
         if server.icon_url:
             embed.set_thumbnail(url = server.icon_url)
@@ -71,7 +71,7 @@ class Info(commands.Cog):
         joined_at = embed_date(member.joined_at)
         embed = discord.Embed(title = 'Discord Tag',
                               description = f'{member} ({member.mention})',
-                              colour = discord.Colour.from_rgb(171, 220, 237))
+                              colour = hayasaka_blue)
         embed.set_author(name = f'{member.display_name}\'s User Info',
                          icon_url = member.avatar_url)
         embed.set_thumbnail(url = member.avatar_url)
@@ -88,7 +88,7 @@ class Info(commands.Cog):
     async def avatar(self, ctx, *, member: discord.Member = None):
         if member is None:
             member = ctx.message.author
-        pfp = discord.Embed(colour = discord.Colour.from_rgb(171, 220, 237))
+        pfp = discord.Embed(colour = hayasaka_blue)
         pfp.set_image(url = member.avatar_url_as(static_format = 'png', size = 256))
         pfp.set_footer(text = f'{member.display_name}\'s avatar')
         await ctx.channel.send(embed = pfp)

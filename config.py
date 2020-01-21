@@ -1,8 +1,11 @@
+import discord
+from discord.ext import commands
 from datetime import datetime
 from dateutil.relativedelta import  relativedelta
 import inflect
 
 e = inflect.engine()
+hayasaka_blue = discord.Colour.from_rgb(171, 220, 237)
 
 async def log(content, type = None):
     log_name = 'general'

@@ -1,5 +1,5 @@
 import discord
-from discord.ext import commands
+from discord.ext import commands, tasks
 from config import log, log_time
 import asyncio
 
@@ -11,9 +11,7 @@ class Events(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print('Ready')
-        await self.client.change_presence(status = discord.Status.online,
-                                          activity = discord.Activity(name = 'over Kaguya-sama',
-                                                                      type = discord.ActivityType.watching))
+        await self.client.change_presence(status = discord.Status.online)
         await log('Hayasaka is online')
 
     @commands.Cog.listener()
@@ -55,14 +53,14 @@ class Events(commands.Cog):
     async def on_command_error(self, ctx, error):
         if isinstance(error, commands.CommandOnCooldown):
             msg = await ctx.channel.send(f'Command on cooldown. Please try again after {error.retry_after:.2f}s.')
-            await asyncio.sleep(3)
-            await msg.delete()
         elif isinstance(error, commands.BadArgument):
             msg = await ctx.channel.send('Invalid command argument. Please try again.')
-            await asyncio.sleep(3)
-            await msg.delete()
+        elif isinstance(error, commands.MissingPermissions):
+            msg = await ctx.channel.send('Missing permissions for command.')
         else:
-            print(error)
+            msg = await ctx.channel.send(error)
+        await asyncio.sleep(3)
+        await msg.delete()
 
 def setup(client):
     client.add_cog(Events(client))
