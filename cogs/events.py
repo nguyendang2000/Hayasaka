@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands, tasks
-from config import log, log_time
+from logger import log
 import asyncio
 
 class Events(commands.Cog):

@@ -1,6 +1,6 @@
 import discord
 from discord.ext import commands
-from bot_token import token
+from config import token
 import os
 import asyncio
 
