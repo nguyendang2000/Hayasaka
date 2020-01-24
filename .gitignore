@@ -128,3 +128,4 @@ dmypy.json
 embed.py
 logs/
 config.py
+formatting.py
