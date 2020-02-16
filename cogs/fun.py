@@ -2,6 +2,7 @@ import discord
 from discord.ext import commands
 import random
 import asyncio
+from embed import get_book_embed
 
 class Fun(commands.Cog):
 
@@ -58,6 +59,10 @@ class Fun(commands.Cog):
     async def seasonal(self, ctx, *, anime):
         rss_feed = f'https://nyaa.si/?page=rss&q={"+".join(anime.split())}+HorribleSubs+1080p'
         await ctx.channel.send(f'Here is your RSS feed: {rss_feed}')
+
+    @commands.command()
+    async def book(self, ctx, *, name):
+        await ctx.channel.send(embed = await get_book_embed(name))
 
 def setup(client):
     client.add_cog(Fun(client))
